@@ -5,6 +5,11 @@ These tools run in the Chrome browser with JavaScript enabled.  They may run fin
 
 This repo consists of two separate elements: vilanitools.html and omni-vehicle-maker.html.
 
+# Omni Vehicle Maker
+
+This is a makertool for building Vehicles, Guns, and Armor.
+
+
 # vilanitools.html
 
 This is a collection of four different tools in one:
@@ -57,8 +62,4 @@ Guidelines to adapt your name to look Vilanic.
 
 Comprehensive and experimental way to calculate tasks.
 
-
-# Omni Vehicle Maker
-
-This is a *makertool for building Vehicles, Guns, and Armor.
 
