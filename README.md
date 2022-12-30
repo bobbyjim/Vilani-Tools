@@ -5,7 +5,7 @@ These tools run in the Chrome browser with JavaScript enabled.  They may run fin
 
 This repo consists of two separate elements: vilanitools.html and omni-vehicle-maker.html.
 
-# Omni Vehicle Maker
+# omni-vehicle-maker.html
 
 This is a makertool for building Vehicles, Guns, and Armor.
 
