@@ -3,7 +3,7 @@ This is a browser-based light toolset for the Traveller RPG.
 
 These tools run in the Chrome browser with JavaScript enabled.  They may run fine in other browsers as well.
 
-This repo consists of two separate scripts: vilanitools.html and omni-vehicle-maker.html.
+This repo consists of two separate elements: vilanitools.html and omni-vehicle-maker.html.
 
 # vilanitools.html
 
