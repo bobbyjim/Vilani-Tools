@@ -3,7 +3,12 @@ This is a browser-based light toolset for the Traveller RPG.
 
 These tools run in the Chrome browser with JavaScript enabled.  They may run fine in other browsers as well.
 
-This repo consists of two separate scripts: vilanitools.html and omni-vehicle-maker.html.
+This repo consists of two separate elements: vilanitools.html and omni-vehicle-maker.html.
+
+# omni-vehicle-maker.html
+
+This is a makertool for building Vehicles, Guns, and Armor.
+
 
 # vilanitools.html
 
@@ -57,8 +62,4 @@ Guidelines to adapt your name to look Vilanic.
 
 Comprehensive and experimental way to calculate tasks.
 
-
-# Omni Vehicle Maker
-
-This is a *makertool for building Vehicles, Guns, and Armor.
 
