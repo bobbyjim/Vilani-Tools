@@ -951,11 +951,11 @@ kursae.Ending.push( 213, 'jr' );
 kursae.Ending.push( 216, 'nr' );
 
 var laowon = new LanguageTable();
-laowon.Basic.push( 22, 'CVC' );
-laowon.Basic.push( 33, 'CV' );
+laowon.Basic.push( 21, 'CVC' );
+laowon.Basic.push( 32, 'CV' );
 laowon.Basic.push( 36, 'VC' );
-laowon.Alternate.push( 21, 'CVC' );
-laowon.Alternate.push( 31, 'CV'  );
+laowon.Alternate.push( 20, 'CVC' );
+laowon.Alternate.push( 30, 'CV'  );
 laowon.Alternate.push( 34, 'VC'  );
 laowon.Alternate.push( 36, 'V'   );
 
@@ -2118,17 +2118,14 @@ function makeWord( syllableCount )
         && syllable.match( /V$/ ) )
          syllable += 'C';
          
-      if ( syllable.substring(0,1) == 'V' )
-         word += arr.Vowel[ randomLetterIndex() ];
-      else
-      {
-         word += arr.Initial[ randomLetterIndex() ]
-               + arr.Vowel[ randomLetterIndex() ];
-         
-         if ( syllable.length == 3 )
-            word += arr.Ending[ randomLetterIndex() ];        
-      }
-      
+      if ( syllable.match( /^C/) )
+         word += arr.Initial[ randomLetterIndex() ];
+
+      word += arr.Vowel[ randomLetterIndex() ];
+
+      if ( syllable.match( /C$/ ) )
+         word += arr.Ending[ randomLetterIndex() ];        
+
       if ( markSyllables == true && i < syllableCount-1 )
          word += '.';
       
@@ -2137,6 +2134,7 @@ function makeWord( syllableCount )
 
    return word;
 }
+
 
 function prettifyWord( word )
 {   
@@ -2244,7 +2242,7 @@ function genSequenceFast()
    
    var maxIter       = document.lang.maxIter.value;
    var startSequence = document.lang.startSequence.value;
-   var numWords      = document.lang.numWords.value;   
+   //var numWords      = document.lang.numWords.value;   
    var numSyllables  = document.lang.numSyllables.value;
    var wordCount     = 0;
    
@@ -2253,16 +2251,16 @@ function genSequenceFast()
    
    for( var j = 0; j < maxIter; j++ )
    {
-      var wordString = makeWord( numSyllables );
+      var wordString = makeWord( numSyllables, startSequence );
                
       if ( wordString.indexOf( startSequence ) == 0 )
       {
          wordString = prettifyWord( wordString );       
          out.value += wordString + "\n";
          wordCount++;
-         iter.value = wordCount + '/' + j;
+         //iter.value = wordCount + '/' + j;
       }           
-      if ( j % 1000 == 0 ) iter.value = wordCount + '/' + j;
+      //if ( j % 1000 == 0 ) iter.value = wordCount + '/' + j;
    }  
    iter.value = wordCount + '/' + j;
 }
