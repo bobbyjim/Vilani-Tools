@@ -274,40 +274,24 @@
 		<br>Step 4: kaaaginagikhkimdaaunmaarr
 		<br>Step 5: kaaginagikhukimadunamaar
 		<br>Step 6: Kaaginagikhukima Dunamaar	
-    <!--form name=dateConversionForm>
-    <h3>Date Converter</h3>
-    Input an Imperial date here, in the form DAY-YEAR: <input size=15 name="inputDate" />
-    Imperial: <input size=15 name="impdate" onchange="doDate(this.value, 365, 24, 0)" />  e.g. 22-1105
-    Vilani:   <input size=15 name="vildate" onchange="doDate(this.value, 300, 0)" />
-    Zhodani:  <input size=15 name="zhodate" onchange="doDate(this.value, 244, 27.02, 13135857)" />
-    Aslan:    <input size=15 name="asldate" onchange="doDate(this.value, 450, 0)" />
-    Vargr:    <input size=15 name="vardate" onchange="doDate(this.value, 365, 0)" />
-    
-    <input type=button name=Analyze value=Analyze onClick="setDate(inputDate.value,calendarOut)" />
-    <br />
-    <textarea readonly name="calendarOut" rows=20 cols=60></textarea>
-    
-    </form-->
 </div>
 
 <div id="tab_four" class="hide">
 
     <form name=dateConversionForm>
-		<h3>Date Converter</h3>
-		Input an Imperial date here, in the short form DAY-YEAR: <input size=15 name="inputDate" />
-	<!--    Imperial: <input size=15 name="impdate" onchange="doDate(this.value, 365, 24, 0)" />  e.g. 22-1105
-		Vilani:   <input size=15 name="vildate" onchange="doDate(this.value, 300, 0)" />
-		Zhodani:  <input size=15 name="zhodate" onchange="doDate(this.value, 244, 27.02, 13135857)" />
-		Aslan:    <input size=15 name="asldate" onchange="doDate(this.value, 450, 0)" />
-		Vargr:    <input size=15 name="vardate" onchange="doDate(this.value, 365, 0)" /-->
-		
-		<input type=button name=Analyze value=Analyze onClick="setDate(inputDate.value,calendarOut)" />
+		<h3>Date Approximations</h3>
+		Input an Imperial date here, in the short form DAY-YEAR: <input size=15 name="inputDate" />		
+		<input type=button name=Analyze value="Approximate!" onClick="setDate(inputDate.value,calendarOut)" />
 		<br />
 		<textarea readonly name="calendarOut" rows=20 cols=80></textarea>	
 		</form>
 		Alternately, input a Vilani date in the short form <font face=courier>LANI.DRANDIR</font><br />
 		Alternately, input a Zhodani date in the short form <font face=courier>OLYMPIAD:YEAR:SEASON:DAY</font><br />
         <br />
+		Benchmarks: <br />
+		001-1105 is Zhodani 3467.2 Atrint/14. <br />
+		???-1120 is Vilani 3882.??? <br />
+		<br />
 </div>
 
 

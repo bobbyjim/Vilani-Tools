@@ -4,7 +4,8 @@
 //
 ///////////////////////////////////////////////////////////
 
-var zhodaniOffset = 58997389 + 50;
+var zhodaniOffset = 58993400; // + 50;
+var vilaniCorrelationConstant = 3041.65; // .597;
 
 //
 //  The entry function for converting Imperial dates to
@@ -23,28 +24,28 @@ function setDate( dateStr, textArea )
       // THIS IS AN IMPERIAL DATE
       var day   = parseInt(RegExp.$1) - 1;
       var year  = parseInt(RegExp.$2);
-      var hours = ( year * 365 + day ) * 24;
+      var impHours = ( year * 365 + day ) * 24;
       
       var longForm = "Year " + year + ", Day " + (day+1);
 
       textArea.value +=  "Imperial        " + dateStr.padEnd(17, ' ') + longForm + "\n";
 
-      calcAslan( hours, textArea );
-      calcVilani( hours, textArea );
-      calcZhodani( hours, textArea );
+      calcAslan( impHours, textArea );
+      calcVilani( impHours, textArea );
+      calcZhodani( impHours, textArea );
    }
    else
    if ( dateStr.match( /(\d+)\.(\d+)/) )
    {
       // THIS IS A VILANI DATE
       var lani    = parseInt( RegExp.$1 );
-      lani -= 3041.597; // Vilani correlation constant
+      lani -= vilaniCorrelationConstant;
       var drandir = parseInt( RegExp.$2 );
-      var hours   = (lani * 500 + (drandir / 2)) * 23.35; // so RCp45 tells me
+      var impHours   = (lani * 500 + (drandir / 2)) * 23.35; // so RCp45 tells me
 
-      calcImperial( hours, textArea );
-      calcAslan( hours, textArea );
-      calcZhodani( hours, textArea );
+      calcImperial( impHours, textArea );
+      calcAslan( impHours, textArea );
+      calcZhodani( impHours, textArea );
    }
    else
    if ( dateStr.match( /(\d+):(\d+):(\d+):(\d+)/ ) )
@@ -54,13 +55,13 @@ function setDate( dateStr, textArea )
       var year     = parseInt( RegExp.$2 ) - 1;
       var season   = parseInt( RegExp.$3 ) - 1;
       var day      = parseInt( RegExp.$4 );
-      var hours    = (olympiad * 733 + year * 244 + season * 45 + day) * 27.02;
+      var impHours = (olympiad * 733 + year * 244 + season * 45 + day) * 27.02;
       
-      hours -= zhodaniOffset;
+      impHours -= zhodaniOffset;
 
-      calcImperial( hours, textArea );
-      calcAslan( hours, textArea );
-      calcVilani( hours, textArea );
+      calcImperial( impHours, textArea );
+      calcAslan( impHours, textArea );
+      calcVilani( impHours, textArea );
    }
 }
 
@@ -68,13 +69,11 @@ function calcImperial( impHours, textArea )
 {
    var days  = parseInt( impHours / 24 );
    var year  = parseInt( days / 365 );
-   var day   = days % 365;
+   var day   = 1+(days % 365);
    
    var shortForm = day + "-" + year;
    var longForm  = "Year " + year + ", Day " + day;
    textArea.value += "Imperial".padEnd( 16, ' ') + shortForm.padEnd(17, ' ') + longForm + "\n";
-
-//   textArea.value += "Imperial: " + day + "-" + year + "\n";
 }
 
 function calcZhodani( impHours, textArea )
@@ -124,9 +123,31 @@ function calcZhodani( impHours, textArea )
 
 }
 
+/*
+   Aslan Tests:
+
+Aslan	 Imp.	Event	
+-123	-2190	First World War
+-88	-2160	Second World War (nuclear)
+-60	-2136	TL 7
+-22	-2102	Orbital bases
+-18	-2098	Third World War
+  0	-2083	Tlaukhu formed
+ 94	-1999	TL 9; Jump drive invented
+117	-1980	First contact with Humaniti
+1100	-1118	Border Wars begin
+1185	-1044	Great Rift crossed
+2810	380	Peace of Ftahalr; Border wars end
+2902	461	First contact with Zhodani
+3077	614	Yerlyaruiwo-Tralyeaeawi War
+3120	652	Hlyueawi clan joins Tlaukhu
+3167	693	Yerlyaruiwo-T. War ends
+3644	1111	Golden era of Third Imperium
+
+*/
 function calcAslan( impHours, textArea  )
 {
-   var aslanCorrelationConsant = 762450;
+   var aslanCorrelationConsant = 762150; // +300;
 
    var idn = impHours / 24.0;
    idn += aslanCorrelationConsant;
@@ -156,7 +177,7 @@ function calcVilani( impHours, textArea)
 {
    var drandir = impHours / 23.35; // drandir since Imperial 001-0001.
 
-   drandir += (3041.6 * 500); // offset from Lani 1 Drandir 1.
+   drandir += (vilaniCorrelationConstant * 500); // offset from Lani 1 Drandir 1.
 
    var lani = parseInt(drandir / 500);
    drandir  = parseInt(drandir % 500) * 2 + 1;
