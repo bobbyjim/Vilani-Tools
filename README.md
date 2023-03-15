@@ -60,7 +60,25 @@ Guidelines to adapt your name to look Vilanic.
 
 ## Date Converters
 
-Currently converts Imperial dates to Zhodani dates.
+Currently converts Imperial dates to Aslan, Vilani, and Zhodani dates.  To use this, enter a valid Imperial date in the input box, such as:
+
+   001-1105
+
+Negative Imperial years also work, such as
+
+   001--1105
+
+You can also enter Vilani or Zhodani dates.  To enter a Vilani date, use the LANI year, a decimal point, and then the DRANDIR value:
+
+   3882.425
+   
+   Drandir range from 0 to 1000.
+
+To enter a Zhodani date, enter the Olympiad, Year, Season, and Day, separated by colons.  For example,
+
+   3509:3:1:38
+   
+   Is the 3509th Olympiad, and the 3rd year of that Olympiad, in the season Atrint day 38.
 
 ## Task Roller
 
