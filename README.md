@@ -58,6 +58,10 @@ A handy way to examine a UWP, and also a handy way to calculate D/R/T, given the
 
 Guidelines to adapt your name to look Vilanic.
 
+## Date Converters
+
+Currently converts Imperial dates to Zhodani dates.
+
 ## Task Roller
 
 Comprehensive and experimental way to calculate tasks.
