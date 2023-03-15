@@ -17,19 +17,36 @@ function setDate( dateStr, textArea )
    
    dateStr = dateStr.toLowerCase();
  
-   if ( dateStr.match(  /(\d+)-(\d+)/ ) ) 
+   if ( dateStr.match(  /(\d+)-(-?\d+)/ ) ) 
    {
       // THIS IS AN IMPERIAL DATE
       var day   = parseInt(RegExp.$1) - 1;
       var year  = parseInt(RegExp.$2);
       var hours = ( year * 365 + day ) * 24;
       
+      var longForm = "Year " + year + ", Day " + (day+1);
+
+      textArea.value = "CALENDAR        SHORT FORM       LONG FORM\n"
+                     + "--------------- ---------------- -------------------------------\n"
+                     + "Imperial        " + dateStr.padEnd(17, ' ') + longForm + "\n";
+
       calcAslan( hours, textArea );
       calcVilani( hours, textArea );
       calcZhodani( hours, textArea );
    }
    else
-   if ( dateStr.match( /(\d+)\.(\d+)\.(\d+).(\d+)/ ) )
+   if ( dateStr.match( /(\d+)\.(\d+)/) )
+   {
+      // THIS IS A VILANI DATE
+      var lani    = parseInt( RegExp.$1 );
+      lani -= 3041.597; // Vilani correlation constant
+      var drandir = parseInt( RegExp.$2 );
+      var hours   = (lani * 500 + (drandir / 2)) * 23.35; // so RCp45 tells me
+
+      calcImperial( hours, textArea );
+   }
+   else
+   if ( dateStr.match( /(\d+):(\d+):(\d+):(\d+)/ ) )
    {
       // THIS IS A ZHODANI DATE
       var olympiad = parseInt( RegExp.$1 );
@@ -75,7 +92,7 @@ function calcZhodani( impHours, textArea )
    var season = parseInt( day / 41 );
    var seasonDay = day % 41;
    
-   textArea.value += "[zhodani debug] " + days + "d : " + olympiads + "o : " + oRemainder + "r : " + year + "y : " + day + "d : " + season + "seas : " + seasonDay + "sd\n\n";
+//   textArea.value += "[zhodani debug] " + days + "d : " + olympiads + "o : " + oRemainder + "r : " + year + "y : " + day + "d : " + season + "seas : " + seasonDay + "sd\n";
    
    var seasonArray = [ 'Atrint', 'Vrienstial', 'Atchafser', 'Ataniebl', 'Atshtiavl', 'Atpaipr' ];
    var holidayArray = [ 'Dranzhrin', 'Vipechaklstial', 'Dranzhrinatch', 'Kazdievlstial', 'Thequzastial' ];
@@ -90,9 +107,11 @@ function calcZhodani( impHours, textArea )
       year = 3;
       dayName = doubleOlympiadDay;
    }
+
+   var shortForm = olympiads + ":" + year + ":" + (season+1) + ":" + seasonDay;
+   var longForm  = olympiads + "." + year + " " + dayName;
    
-   textArea.value += "Zhodani: " + olympiads + "." + year + " " + dayName 
-                  + "  (" + olympiads + "." + year + "." + (season+1) + "." + seasonDay + ")\n";
+   textArea.value += "Zhodani".padEnd(16, ' ') + shortForm.padEnd( 17, ' ' ) + longForm + "\n";
 
 }
 
@@ -115,11 +134,34 @@ function calcAslan( impHours, textArea  )
    if (days < 1)
       days = 212 + days;
 
-   textArea.value += "Aslan:   Eakhu " + parseInt(years) + " day " + parseInt(days) + " "
-                   + "(" + parseInt(years) + "." + parseInt(days) + ")\n\n";
+   var shortForm = parseInt(years) + "/" + parseInt(days);
+   var longForm = "Ftahea " + parseInt(years) + " Eakhu " + parseInt(days);
+
+   textArea.value += "Aslan".padEnd( 16, ' ' ) + shortForm.padEnd( 17, ' ' ) + longForm + "\n";
 }
 
-function calcVilani( impHours, textArea )
+//
+//  This algorithm follows Referee's Companion p45.
+//
+function calcVilani( impHours, textArea)
+{
+   var drandir = impHours / 23.35; // drandir since Imperial 001-0001.
+
+   drandir += (3041.6 * 500); // offset from Lani 1 Drandir 1.
+
+   var lani = parseInt(drandir / 500);
+   drandir  = parseInt(drandir % 500) * 2 + 1;
+
+   if (drandir < 10)       drandir = "00" + drandir;
+   else if (drandir < 100) drandir = "0"  + drandir;
+
+   var shortForm = lani + "." + drandir;
+   var longForm  = "Lani " + lani + " Drandir " + drandir;
+
+   textArea.value += "Vilani (RC)".padEnd( 16, ' ') + shortForm.padEnd( 17, ' ' ) + longForm + "\n";
+}
+
+function calcVilaniDGP( impHours, textArea )
 {
    var vilaniCorrelationConstant = 1449500 + 17388 + 9435;
 
@@ -180,14 +222,14 @@ function calcVilani( impHours, textArea )
    kidashCount += 1;
    drandirCount += 1;
 
-   var abbreviated = " (" + parseInt(kargurkalaCount) + ":" 
-   + parseInt(gurkalaCount) + ":"
-   + parseInt(kidashCount) + ":"
+   var abbreviated = " (" + parseInt(kargurkalaCount) + "." 
+   + parseInt(gurkalaCount) + "."
+//   + parseInt(kidashCount) + ":"
    + parseInt(drandirCount) + ")";
 
    textArea.value += "Vilani:  Kargurkala " + parseInt(kargurkalaCount) 
                            + ", Gurkala "    + parseInt(gurkalaCount) 
-                           + ", Kidash "     + parseInt(kidashCount)
-                           + ", Drandir "    + parseInt(drandirCount) 
+                           + ", (Kidash "     + parseInt(kidashCount)
+                           + "), Drandir "    + parseInt(drandirCount) 
                            + abbreviated + "\n\n"
 }
