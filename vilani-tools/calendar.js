@@ -13,8 +13,9 @@ var zhodaniOffset = 58997389 + 50;
 //
 function setDate( dateStr, textArea )
 {
-   textArea.value = "";
-   
+   textArea.value = "CALENDAR        SHORT FORM       LONG FORM\n"
+   + "--------------- ---------------- -------------------------------\n";
+
    dateStr = dateStr.toLowerCase();
  
    if ( dateStr.match(  /(\d+)-(-?\d+)/ ) ) 
@@ -26,9 +27,7 @@ function setDate( dateStr, textArea )
       
       var longForm = "Year " + year + ", Day " + (day+1);
 
-      textArea.value = "CALENDAR        SHORT FORM       LONG FORM\n"
-                     + "--------------- ---------------- -------------------------------\n"
-                     + "Imperial        " + dateStr.padEnd(17, ' ') + longForm + "\n";
+      textArea.value +=  "Imperial        " + dateStr.padEnd(17, ' ') + longForm + "\n";
 
       calcAslan( hours, textArea );
       calcVilani( hours, textArea );
@@ -44,6 +43,8 @@ function setDate( dateStr, textArea )
       var hours   = (lani * 500 + (drandir / 2)) * 23.35; // so RCp45 tells me
 
       calcImperial( hours, textArea );
+      calcAslan( hours, textArea );
+      calcZhodani( hours, textArea );
    }
    else
    if ( dateStr.match( /(\d+):(\d+):(\d+):(\d+)/ ) )
@@ -55,7 +56,11 @@ function setDate( dateStr, textArea )
       var day      = parseInt( RegExp.$4 );
       var hours    = (olympiad * 733 + year * 244 + season * 45 + day) * 27.02;
       
-      calcImperial( hours - zhodaniOffset, textArea );
+      hours -= zhodaniOffset;
+
+      calcImperial( hours, textArea );
+      calcAslan( hours, textArea );
+      calcVilani( hours, textArea );
    }
 }
 
@@ -65,7 +70,11 @@ function calcImperial( impHours, textArea )
    var year  = parseInt( days / 365 );
    var day   = days % 365;
    
-   textArea.value += "Imperial: " + day + "-" + year + "\n";
+   var shortForm = day + "-" + year;
+   var longForm  = "Year " + year + ", Day " + day;
+   textArea.value += "Imperial".padEnd( 16, ' ') + shortForm.padEnd(17, ' ') + longForm + "\n";
+
+//   textArea.value += "Imperial: " + day + "-" + year + "\n";
 }
 
 function calcZhodani( impHours, textArea )

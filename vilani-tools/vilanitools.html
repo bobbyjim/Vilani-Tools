@@ -294,7 +294,7 @@
 
     <form name=dateConversionForm>
 		<h3>Date Converter</h3>
-		Input an Imperial date here, in the form DAY-YEAR: <input size=15 name="inputDate" />
+		Input an Imperial date here, in the short form DAY-YEAR: <input size=15 name="inputDate" />
 	<!--    Imperial: <input size=15 name="impdate" onchange="doDate(this.value, 365, 24, 0)" />  e.g. 22-1105
 		Vilani:   <input size=15 name="vildate" onchange="doDate(this.value, 300, 0)" />
 		Zhodani:  <input size=15 name="zhodate" onchange="doDate(this.value, 244, 27.02, 13135857)" />
@@ -303,9 +303,11 @@
 		
 		<input type=button name=Analyze value=Analyze onClick="setDate(inputDate.value,calendarOut)" />
 		<br />
-		<textarea readonly name="calendarOut" rows=20 cols=80></textarea>
-		
+		<textarea readonly name="calendarOut" rows=20 cols=80></textarea>	
 		</form>
+		Alternately, input a Vilani date in the short form <font face=courier>LANI.DRANDIR</font><br />
+		Alternately, input a Zhodani date in the short form <font face=courier>OLYMPIAD:YEAR:SEASON:DAY</font><br />
+        <br />
 </div>
 
 
