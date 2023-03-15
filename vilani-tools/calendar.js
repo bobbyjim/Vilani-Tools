@@ -6,24 +6,32 @@
 
 var zhodaniOffset = 58997389 + 50;
 
+//
+//  The entry function for converting Imperial dates to
+//  all other supported dates, and converting any supported
+//  date to an approximate Imperial date.
+//
 function setDate( dateStr, textArea )
 {
    textArea.value = "";
    
    dateStr = dateStr.toLowerCase();
  
-   if ( dateStr.match(  /(\d+)-(\d+)/ ) )
+   if ( dateStr.match(  /(\d+)-(\d+)/ ) ) 
    {
+      // THIS IS AN IMPERIAL DATE
       var day   = parseInt(RegExp.$1) - 1;
       var year  = parseInt(RegExp.$2);
       var hours = ( year * 365 + day ) * 24;
       
+      calcAslan( hours, textArea );
+      calcVilani( hours, textArea );
       calcZhodani( hours, textArea );
    }
    else
    if ( dateStr.match( /(\d+)\.(\d+)\.(\d+).(\d+)/ ) )
    {
-      // zhodani, for now
+      // THIS IS A ZHODANI DATE
       var olympiad = parseInt( RegExp.$1 );
       var year     = parseInt( RegExp.$2 ) - 1;
       var season   = parseInt( RegExp.$3 ) - 1;
@@ -45,7 +53,6 @@ function calcImperial( impHours, textArea )
 
 function calcZhodani( impHours, textArea )
 {
-
    impHours += zhodaniOffset;
    var days = parseInt( impHours / 27.02 );
    var olympiads  = parseInt( days / 733 );
@@ -68,7 +75,7 @@ function calcZhodani( impHours, textArea )
    var season = parseInt( day / 41 );
    var seasonDay = day % 41;
    
-   textArea.value += "[debug] " + days + "d : " + olympiads + "o : " + oRemainder + "r : " + year + "y : " + day + "d : " + season + "seas : " + seasonDay + "sd\n\n";
+   textArea.value += "[zhodani debug] " + days + "d : " + olympiads + "o : " + oRemainder + "r : " + year + "y : " + day + "d : " + season + "seas : " + seasonDay + "sd\n\n";
    
    var seasonArray = [ 'Atrint', 'Vrienstial', 'Atchafser', 'Ataniebl', 'Atshtiavl', 'Atpaipr' ];
    var holidayArray = [ 'Dranzhrin', 'Vipechaklstial', 'Dranzhrinatch', 'Kazdievlstial', 'Thequzastial' ];
@@ -87,4 +94,100 @@ function calcZhodani( impHours, textArea )
    textArea.value += "Zhodani: " + olympiads + "." + year + " " + dayName 
                   + "  (" + olympiads + "." + year + "." + (season+1) + "." + seasonDay + ")\n";
 
+}
+
+function calcAslan( impHours, textArea  )
+{
+   var aslanCorrelationConsant = 762450;
+
+   var idn = impHours / 24.0;
+   idn += aslanCorrelationConsant;
+
+   var aslanDayCount = idn * 9/13.6;
+
+   var fiveYears    = aslanDayCount / 1061;
+   var fiveFraction = aslanDayCount % 1061;
+   var singleYears  = fiveFraction  / 212;
+   var days         = fiveFraction  % 212;
+  
+   var years = fiveYears * 5 + singleYears;
+
+   if (days < 1)
+      days = 212 + days;
+
+   textArea.value += "Aslan:   Eakhu " + parseInt(years) + " day " + parseInt(days) + " "
+                   + "(" + parseInt(years) + "." + parseInt(days) + ")\n\n";
+}
+
+function calcVilani( impHours, textArea )
+{
+   var vilaniCorrelationConstant = 1449500 + 17388 + 9435;
+
+   var idn = impHours / 24.0;
+   idn += vilaniCorrelationConstant;
+
+   var drandir = idn / 1.325;
+    
+   var kargurkalaCount = 0;
+   var gurkalaCount = 0;
+   var kidashCount = 0;
+   var drandirCount = 1;
+
+   // every ten Vilani years, the calendar adds 13 drandir.
+   // every fifty Vilani years, the calendar adds 12 drandir instead of 13. 
+   // so in 50 years, there are (360*50) + (5*13) - 1 drandir.
+   var fiftyYearDrandir = 50 * 360 + 5 * 13 - 1;
+
+   var fiftyYearCount = drandir / fiftyYearDrandir;
+   var fiftyRemainder = drandir % fiftyYearDrandir;
+
+   kargurkalaCount += fiftyYearCount * 5;
+
+   // the fifty remainder is a fraction of 50 years.
+   // each decade of those years has (10 * 360) + 13 days.
+   var decadeDrandir = 10 * 360 + 13;
+    
+   var decadeCount     = fiftyRemainder / decadeDrandir;
+   var decadeRemainder = fiftyRemainder % decadeDrandir;
+
+   // the decade remainder is a fraction of 10 years.
+   // each year has 360 days exactly.
+
+   kargurkalaCount += decadeCount;
+
+   var singleYearCount = decadeRemainder / 360;
+   var singleRemainder = decadeRemainder % 360;
+
+   if ( singleYearCount == 10 ) // i.e. leap year detected
+   {
+       singleYearCount--;
+       drandirCount += 360 + singleRemainder;
+   }
+   else
+   {
+       drandirCount += singleRemainder;        
+   }
+   // And now we have our date.
+
+   gurkalaCount += singleYearCount;
+    
+   if ( drandirCount < 1 )
+       drandirCount = 360 + drandirCount;
+
+   kidashCount  = drandirCount / 36;
+   drandirCount = drandirCount % 36;
+
+   kidashCount += 1;
+   drandirCount += 1;
+
+   var abbreviated = " (" + parseInt(kargurkalaCount) + ":" 
+   + parseInt(gurkalaCount) + ":"
+   + parseInt(kidashCount) + ":"
+   + parseInt(drandirCount) + ")";
+
+   textArea.value += "Vilani:  Kargurkala " + parseInt(kargurkalaCount) 
+                           + ", Gurkala "    + parseInt(gurkalaCount) 
+                           + ", Kidash "     + parseInt(kidashCount)
+                           + ", Drandir "    + parseInt(drandirCount) 
+                           + abbreviated + "\n\n"
 }
