@@ -1834,6 +1834,38 @@ vegan.Ending.push( 206, 't' );
 vegan.Ending.push( 211, 'th' );
 vegan.Ending.push( 216, 'w' );
 
+var virushi = new LanguageTable();
+virushi.Basic.push( 1, 'V' );
+virushi.Basic.push( 3, 'CV' );
+virushi.Basic.push( 10, 'VC' );
+virushi.Basic.push( 36, 'CVC' );
+virushi.Alternate.push( 15, 'CV' );
+virushi.Alternate.push( 30, 'CVC' );
+virushi.Alternate.push( 36, 'V' );
+virushi.Initial.push( 10, 'dn' );
+virushi.Initial.push( 20, 'f' );
+virushi.Initial.push( 30, 'gh' );
+virushi.Initial.push( 40, 'gn' );
+virushi.Initial.push( 50, 'h' );
+virushi.Initial.push( 90, 'l' );
+virushi.Initial.push( 120, 'q' );
+virushi.Initial.push( 130, 'r' );
+virushi.Initial.push( 140, 's' );
+virushi.Initial.push( 170, 'sh' );
+virushi.Initial.push( 180, 'th' );
+virushi.Initial.push( 190, 'v' );
+virushi.Initial.push( 200, 'w' );
+virushi.Initial.push( 216, 'y' );
+virushi.Vowel.push( 100, 'u' );
+virushi.Vowel.push( 160, 'a' );
+virushi.Vowel.push( 216, 'i' );
+virushi.Ending.push( 15, 'd' );
+virushi.Ending.push( 30, 'gh' );
+virushi.Ending.push( 45, 'h' );
+virushi.Ending.push( 60, 'l' );
+virushi.Ending.push( 90, 'q' );
+virushi.Ending.push( 165, 'r' );
+virushi.Ending.push( 216, 'sh' );
 
 var zhodani = new LanguageTable();
 
@@ -2080,6 +2112,7 @@ function setLanguage( langsel )
    if ( langsel == 'Gvegh' )         arr = vargr;
    if ( langsel == 'Vuakedh' )       arr = vuakedh;
    if ( langsel == 'Vilani' )        arr = vil;
+   if ( langsel == 'Virushi' )       arr = virushi;
    if ( langsel == 'Yiirabarhi' )    arr = yiira;
    if ( langsel == 'Zhodani' )       arr = zhodani;
    if ( langsel == 'Khazad' )        arr = khazad;
