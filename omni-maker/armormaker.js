@@ -17,9 +17,13 @@ var a_items = new Array
    new aElem( 'D', 'Dress',        10,  40, 9,  6,  6,  6,  6,  1,  6,  6,  40000 ),
    new aElem( 'S', 'Suit',          5,  10, 2,  1,  1,  1,  1,  1,  1,  1,   1000 ),
    new aElem( 'U', 'Unit',          9, 200, 4,  2,  2,  2,  2,  1,  2,  2,  60000 ),
+   new aElem( 'X', '*Exoskin',     12,   5, 4,  2,  2,  2,  2,  1,  2,  2,  15000 ),
    new aElem( 'H', '*Shimmersuit', 20,   2, 2,  10, 50, 50, 10, 0,  50, 10, 10000 ),
    new aElem( 'C', '*Cube',        25, 0.5, 5,  50, 50, 50, 50, 50, 50, 5,  40000 ),
 );
+
+// Ex    Exoskin 13  5  4  2  2  2  2  1  2  2  High Tech Unpowered Exoskeleton  15k
+
 
 var a_descriptors = new Array
 (        //   code,  name,          tl, kg,  av, em,fl,ra,so,ps,in,se, cr 
@@ -44,7 +48,8 @@ var a_descriptors = new Array
    new aElem( 'Pro', 'Protected ',  2,  2,   2,  2, 2, 2, 2, 1, 3, 4,  7 ),
    new aElem( 'S',   'Sapper ',     2,  1.2, 5,  6, 6, 1, 6, 1, 8, 8,  7 ),
    new aElem( 'V',   'Vacc ',       4,  1,   5,  5, 0, 1, 1, 1, 5, 5,  10 ),
-   //new aElem( 'Sh',  '*Shimmer ',    19,1.0,2,1,50,50,1,0,50,10, 100 ),
+   //new aElem( '2',  '*CE (Vacc) ',  9,  0.5, 5,  5, 3, 3, 3, 1, 5, 5,  5 ),
+   new aElem( 'Sh',  '*Shimmer ',    19,1.0,2,1,50,50,1,0,50,10, 100 ),
    new aElem( 'Wx',  '*White Globe ',15,1.0,12,12,12,12,12,12,12,6,    120 ),
 );
 
@@ -85,8 +90,8 @@ var a_stages = new Array
    new aElem( 'Ob',  'Obsolete ',   4, 0.7,  3,  3,  3,  3,  3, 0, 9, 3,  0.5 ),   
    new aElem( 'P',   'Prototype ', -1, 1.9,  -4, -4,-4, -4, -4, 0,-4,-4,  3 ),
    new aElem( 'Re',  'Remote ',     2, 1.5,  0,  0,  0,  0,  0, 0, 0, 0,  4 ),
-   new aElem( 'Sl',  'Slaved ',     2, 1.5,  0,  0,  0,  0,  0, 0, 0, 0,  4 )
-// new aElem( 'U',   'Ultimate* ',  4, 0.7, 12, 12, 12, 12, 12, 5,35,12,  3 )
+   new aElem( 'Sl',  'Slaved ',     2, 1.5,  0,  0,  0,  0,  0, 0, 0, 0,  4 ),
+   //new aElem( 'U',   'Ludicrous* ', 7, 0.7, 12, 12, 12, 12, 12, 5,35,12,  1 ),
 );
 
 
