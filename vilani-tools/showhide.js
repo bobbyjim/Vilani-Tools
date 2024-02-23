@@ -34,7 +34,7 @@ function toggle_init()
          else // we have a default, so hide any extra "show" panels
          {
 //            target.className = "panel hide"; 
-            target.style.display = 'none';
+            if (target) target.style.display = 'none';
          }
          
          link.onclick = toggle;  

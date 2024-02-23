@@ -8,6 +8,7 @@
    <script type="text/javascript" src="languagetools.js"></script>
    <script type="text/javascript" src="calendar.js"></script>
    <script type="text/javascript" src="showhide.js"></script>
+   <script type="text/javascript" src="random_resource_gen.js"></script>
    <!--script type="text/javascript" src="plotline.js"></script-->
    <link rel="stylesheet" type="text/css" href="showhide.css" />
 </head>
@@ -22,11 +23,12 @@
 
 <div id="wpNav">
    <ul>
-      <li><a href="#tab_one"    id="wpSelected" class="toggle">Word Generator</a></li>
-      <li><a href="#tab_two"    id="unSelected" class="toggle">UWP & Distance calculator</a></li>
-	  <li><a href="#tab_three"  id="unSelected" class="toggle">Your Name In Vilani</a></li>
-      <li><a href="#tab_four"   id="unSelected" class="toggle">Date Converters</a></li>
-      <li><a href="#tab_five"   id="unSelected" class="toggle">Task Roller</a></li>
+      <li><a href="#tab_one"    id="wpSelected" class="toggle">Words</a></li>
+      <li><a href="#tab_two"    id="unSelected" class="toggle">UWP</a></li>
+	  <li><a href="#tab_three"  id="unSelected" class="toggle">Vilanicize</a></li>
+      <li><a href="#tab_four"   id="unSelected" class="toggle">Calendrics</a></li>
+      <li><a href="#tab_five"   id="unSelected" class="toggle">Tasks</a></li>
+	  <li><a href="#tab-six"    id="unSelected" class="toggle">Randoms</a></li>
    </ul>
 </div>
 
@@ -712,6 +714,27 @@
    
 <input type=button value="Run" onClick="doTask()" />
 
+</div>
+
+<div id="tab_six" class="hide">
+
+	<h3>Rob's Random Traveller Resource Generator</h3>
+
+	<form>
+       <input type=button onClick=generate(this.form) value="Make random people">
+       <br>
+       <textarea name=detail rows=13 cols=75 wrap=physical></textarea>
+       <br>
+       <input type=button onClick=hookEm(this.form) value="Make random adventure hooks">
+       <br>
+       <textarea name=hook rows=6 cols=75 wrap=physical></textarea>
+       <br>
+       <input type=button onClick=lockEm(this.form) value="Make ship lockers">
+       <br>
+       <textarea name=locker1 rows=12 cols=24 wrap=physical></textarea>
+       <textarea name=locker2 rows=12 cols=24 wrap=physical></textarea>
+       <textarea name=locker3 rows=12 cols=24 wrap=physical></textarea>
+	</form>
 </div>
 
 
